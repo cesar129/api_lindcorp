@@ -1,0 +1,6 @@
+@api_lindcorp_HostAddress = http://localhost:5064
+
+GET {{api_lindcorp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
