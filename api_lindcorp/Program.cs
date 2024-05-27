@@ -1,4 +1,11 @@
+using api_lindcorp.Config;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<SampleDBContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 
