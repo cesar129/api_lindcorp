@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api_lindcorp.Config
 {
-    public class SampleDBContext: DbContext
+    public class SqlDbContext : DbContext
     {
 
         public virtual DbSet<Categoria> Categoria { get; set; }
 
-        public SampleDBContext(DbContextOptions<SampleDBContext> options): base(options)
+        public SqlDbContext(DbContextOptions<SqlDbContext> options): base(options)
         {
         }
 

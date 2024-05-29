@@ -1,20 +1,24 @@
 ﻿using api_lindcorp.Config;
 using api_lindcorp.Models;
+using api_lindcorp.Services.Impl;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace api_lindcorp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class CustomerEntityController : ControllerBase
     {
-        private readonly SampleDBContext _context;
+        private readonly SqlDbContext _context;
+        
 
-        public CustomerEntityController(SampleDBContext context)
+        public CustomerEntityController(SqlDbContext context)
         {
-            _context = context;
+            _context = context;            
         }
 
         [HttpGet]

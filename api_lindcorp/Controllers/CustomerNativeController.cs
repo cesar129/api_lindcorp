@@ -1,5 +1,7 @@
 ﻿using api_lindcorp.Config;
 using api_lindcorp.Models;
+using api_lindcorp.Services;
+using api_lindcorp.Services.Impl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,11 +13,19 @@ namespace api_lindcorp.Controllers
     public class CustomerNativeController : ControllerBase
     {
 
-        private readonly SampleDBContext _context;
+        private readonly SqlDbContext _context;
+        private readonly IToken _itoken;
 
-        public CustomerNativeController(SampleDBContext context)
+        public CustomerNativeController(SqlDbContext context, IToken token)
         {
             _context = context;
+            _itoken = token;
+        }
+
+        [HttpGet("/token")]
+        public ActionResult<string> GetToken()
+        {
+            return _itoken.CreateToken("tokennn");
         }
 
         [HttpGet]
