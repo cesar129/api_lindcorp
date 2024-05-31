@@ -1,4 +1,6 @@
 using api_lindcorp.Config;
+using api_lindcorp.Repositories;
+using api_lindcorp.Repositories.Impl;
 using api_lindcorp.Services;
 using api_lindcorp.Services.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,7 +18,14 @@ var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 // Add services to the container.
 builder.Services.AddDbContext<SqlDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddScoped<IToken, Token>();
+builder.Services.AddScoped<ITokenService, TokenServiceImpl>();
+
+builder.Services.AddScoped<ILoginRepository, LoginRepositoryImpl>();
+builder.Services.AddScoped<ILoginService, LoginServiceImpl>();
+
+builder.Services.AddScoped<IDataRepository, DataRepositoryImpl>();
+builder.Services.AddScoped<IDataService, DataServiceImpl>();
+
 builder.Services.AddControllers();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

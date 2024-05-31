@@ -6,18 +6,18 @@ using System.Text;
 
 namespace api_lindcorp.Services
 {
-    public class Token : IToken
+    public class TokenServiceImpl : ITokenService
     {
 
         private readonly IConfiguration _configuration;
 
-        public Token(IConfiguration configuration)
+        public TokenServiceImpl(IConfiguration configuration)
         {
             _configuration = configuration;
         }
         
 
-        string IToken.CreateToken(string value)
+        public string CreateToken(string body)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
@@ -25,7 +25,7 @@ namespace api_lindcorp.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, value),
+                    new Claim(ClaimTypes.NameIdentifier, body),
                     //new Claim(ClaimTypes.Role, a),
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
