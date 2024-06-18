@@ -22,7 +22,7 @@ namespace api_lindcorp.Exceptions
             {
                 _logger.LogError(badRequestException,"Exception occurred: {Message}",badRequestException.Message);
                 response.statusCode = System.Net.HttpStatusCode.BadRequest;
-                response.data = badRequestException.Message;
+                response.message = badRequestException.Message;
 
                 httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
                 await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
@@ -32,7 +32,7 @@ namespace api_lindcorp.Exceptions
             {
                 _logger.LogError(notFoundException, "Exception occurred: {Message}", notFoundException.Message);
                 response.statusCode = System.Net.HttpStatusCode.NotFound;
-                response.data = notFoundException.Message;
+                response.message = notFoundException.Message;
 
                 httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
                 await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
@@ -42,7 +42,7 @@ namespace api_lindcorp.Exceptions
             {
                 _logger.LogError(unauthorizedException, "Exception occurred: {Message}", unauthorizedException.Message);
                 response.statusCode = System.Net.HttpStatusCode.Unauthorized;
-                response.data = unauthorizedException.Message;
+                response.message = unauthorizedException.Message;
 
                 httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);
@@ -52,7 +52,7 @@ namespace api_lindcorp.Exceptions
             {
                 _logger.LogError(sqlException, "Exception occurred: {Message}", sqlException.Message);
                 response.statusCode = System.Net.HttpStatusCode.InternalServerError;
-                response.data = sqlException.Message;
+                response.message = sqlException.Message;
 
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);

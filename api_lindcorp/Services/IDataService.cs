@@ -4,6 +4,6 @@ namespace api_lindcorp.Services
 {
     public interface IDataService
     {
-        DataResponse sendData(DataBody body);
+        string sendData(string json);
     }
 }

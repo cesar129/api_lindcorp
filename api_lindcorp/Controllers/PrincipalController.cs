@@ -2,6 +2,8 @@
 using api_lindcorp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace api_lindcorp.Controllers
 {
@@ -34,15 +36,16 @@ namespace api_lindcorp.Controllers
             return this._loginService.Login(body);
         }
 
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
         [Produces("application/json")]
         [Consumes("application/json")]
         [HttpPost("/sendData")]
-        public ActionResult<DataResponse> sendData(DataBody body)
+        public ActionResult<object> sendData([FromBody] Object json)
         {
-            return this._dataService.sendData(body);
+
+            return this._dataService.sendData(json.ToString());
         }
 
     }

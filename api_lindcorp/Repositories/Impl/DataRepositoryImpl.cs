@@ -1,5 +1,10 @@
 ﻿using api_lindcorp.Config;
+using api_lindcorp.Exceptions;
 using api_lindcorp.Models;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using System.Data.Common;
+using System.Net;
 
 namespace api_lindcorp.Repositories.Impl
 {
@@ -15,9 +20,38 @@ namespace api_lindcorp.Repositories.Impl
             _context = sqlDbContext;
         }
 
-        public DataResponse sendData(DataBody body)
+        public string sendData(string json)
         {
-            return new DataResponse();
+            string response = "{}";
+
+            using (var command = _context.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "sp_send_data_json";
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                DbParameter parameter = command.CreateParameter();
+                parameter.ParameterName = "@p_vJson";
+                parameter.Value = json;
+                command.Parameters.Add(parameter);
+
+                _context.Database.OpenConnection();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {;
+
+                        response = reader.GetString(0);
+            
+                    }
+                    else
+                    {
+                        throw new UnauthorizedCustomerException("Credenciales inválidas");
+                    }
+                }
+            }
+
+            return response;
         }
     }
 }

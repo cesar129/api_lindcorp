@@ -14,9 +14,9 @@ namespace api_lindcorp.Services.Impl
             _dataRepository = dataRepository;
         }
 
-        public DataResponse sendData(DataBody body)
+        public string sendData(string json)
         {
-            return this._dataRepository.sendData(body);
+            return this._dataRepository.sendData(json);
 
         }
 
