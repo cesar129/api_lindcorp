@@ -14,7 +14,7 @@ namespace api_lindcorp.Services.Impl
             _loginRepository = loginRepository;
         }
 
-        public LoginResponse Login(LoginBody body)
+        public Response Login(LoginBody body)
         {
             return this._loginRepository.Login(body);
         }

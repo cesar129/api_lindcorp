@@ -1,7 +1,9 @@
-﻿namespace api_lindcorp.Services.Impl
+﻿using api_lindcorp.Models;
+
+namespace api_lindcorp.Services.Impl
 {
     public interface ITokenService
     {
-        string CreateToken(string body);
+        string CreateToken(Aplication aplication);
     }
 }

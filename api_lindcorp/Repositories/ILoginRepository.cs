@@ -4,6 +4,6 @@ namespace api_lindcorp.Repositories
 {
     public interface ILoginRepository
     {
-        LoginResponse Login(LoginBody body);
+        Response Login(LoginBody body);
     }
 }
