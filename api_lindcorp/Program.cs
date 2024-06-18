@@ -1,4 +1,5 @@
 using api_lindcorp.Config;
+using api_lindcorp.Exceptions;
 using api_lindcorp.Repositories;
 using api_lindcorp.Repositories.Impl;
 using api_lindcorp.Services;
@@ -40,6 +41,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtKey!))
         };
     });
+
+builder.Services.AddExceptionHandler<ManagerExceptionHandler>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -92,4 +95,6 @@ app.UseStatusCodePages();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseExceptionHandler("/error");
+
 app.Run();

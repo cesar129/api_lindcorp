@@ -1,13 +1,10 @@
 ﻿using api_lindcorp.Config;
+using api_lindcorp.Exceptions;
 using api_lindcorp.Models;
 using api_lindcorp.Services.Impl;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using System.Data.Common;
 using System.Net;
-using System.Reflection.Metadata;
 
 namespace api_lindcorp.Repositories.Impl
 {
@@ -54,9 +51,9 @@ namespace api_lindcorp.Repositories.Impl
                         bool verifyPassword =  Utils.Utils.verifyPassword(body.password, aplication.password);
                         if(!verifyPassword)
                         {
-                            response.statusCode = HttpStatusCode.Unauthorized;
-                            response.data = "Credenciales inválidas";
-                        }else
+                            throw new UnauthorizedCustomerException("Credenciales inválidas");
+                        }
+                        else
                         {
                             LoginResponse loginResponse = new LoginResponse();
                             loginResponse.token = this._itoken.CreateToken(aplication);
@@ -66,9 +63,8 @@ namespace api_lindcorp.Repositories.Impl
                         }
                     }
                     else
-                    {
-                        response.statusCode = HttpStatusCode.Unauthorized;
-                        response.data = "Credenciales inválidas";
+                    {                        
+                        throw new UnauthorizedCustomerException("Credenciales inválidas");
                     }
                 }
             }

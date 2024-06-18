@@ -25,6 +25,7 @@ namespace api_lindcorp.Controllers
         }
 
         [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
         [Produces("application/json")]
         [Consumes("application/json")]
         [HttpPost("/login")]
@@ -35,6 +36,7 @@ namespace api_lindcorp.Controllers
 
         [Authorize]
         [ProducesResponseType(typeof(Response), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status401Unauthorized)]
         [Produces("application/json")]
         [Consumes("application/json")]
         [HttpPost("/sendData")]
