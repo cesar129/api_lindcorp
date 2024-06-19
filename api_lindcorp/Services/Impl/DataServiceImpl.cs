@@ -1,5 +1,4 @@
-﻿using api_lindcorp.Models;
-using api_lindcorp.Repositories;
+﻿using api_lindcorp.Repositories;
 
 namespace api_lindcorp.Services.Impl
 {

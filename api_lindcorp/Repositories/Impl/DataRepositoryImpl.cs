@@ -1,10 +1,7 @@
 ﻿using api_lindcorp.Config;
 using api_lindcorp.Exceptions;
-using api_lindcorp.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 using System.Data.Common;
-using System.Net;
 
 namespace api_lindcorp.Repositories.Impl
 {
