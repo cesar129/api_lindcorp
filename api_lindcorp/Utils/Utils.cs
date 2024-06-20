@@ -13,5 +13,14 @@
             return BCrypt.Net.BCrypt.Verify(passwordHash, password);
         }
 
+        public static string extractBearerToken(string authorizationHeader)
+        {
+            if (authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                return authorizationHeader.Substring("Bearer ".Length).Trim();
+            }
+            return "";
+        }
+
     }
 }

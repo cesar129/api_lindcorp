@@ -4,6 +4,6 @@ namespace api_lindcorp.Repositories
 {
     public interface IDataRepository
     {
-        string sendData(string json);
+        string sendData(string json, string token);
     }
 }

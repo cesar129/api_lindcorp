@@ -1,7 +1,10 @@
-﻿using api_lindcorp.Models;
+﻿using api_lindcorp.Exceptions;
+using api_lindcorp.Models;
 using api_lindcorp.Services;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace api_lindcorp.Controllers
 {
@@ -10,7 +13,7 @@ namespace api_lindcorp.Controllers
     [ProducesResponseType(typeof(Response), StatusCodes.Status500InternalServerError)]
     [ApiController]
     [Route("EndPoint")]
-    public class PrincipalController
+    public class PrincipalController : ControllerBase
     {
         private readonly ILoginService _loginService;
         private readonly IDataService _dataService;
@@ -42,8 +45,11 @@ namespace api_lindcorp.Controllers
         [HttpPost("/sendData")]
         public ActionResult<object> sendData([FromBody] object json)
         {
-
-            return this._dataService.sendData(json.ToString());
+            if (!Request.Headers.TryGetValue("Authorization", out StringValues authorizationHeader)) {
+                throw new UnauthorizedCustomerException("no autorizado");
+            }
+            string token = Utils.Utils.extractBearerToken(authorizationHeader);
+            return this._dataService.sendData(json.ToString(), token);
         }
 
     }
