@@ -29,17 +29,6 @@ namespace api_lindcorp.Repositories.Impl
             var username = this._itoken.ValidateToken(token).FindFirst("user").Value;
             
 
-            // Deserializar el JSON a un objeto dinámico
-            var jsonObject = JsonSerializer.Deserialize<JsonElement>(json);
-
-            // Crear un diccionario para modificar el JSON
-            var dictionary = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json);
-
-            // Modificar el valor de userName usando una variable
-            dictionary["userName"] = JsonDocument.Parse($"\"{username}\"").RootElement;
-
-            string updatedJsonString = JsonSerializer.Serialize(dictionary);
-
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = "sp_send_data_json";
@@ -47,8 +36,13 @@ namespace api_lindcorp.Repositories.Impl
 
                 DbParameter parameter = command.CreateParameter();
                 parameter.ParameterName = "@p_vJson";
-                parameter.Value = updatedJsonString;
+                parameter.Value = json;
                 command.Parameters.Add(parameter);
+
+                DbParameter parameterA = command.CreateParameter();
+                parameterA.ParameterName = "@p_appuser";
+                parameterA.Value = username;
+                command.Parameters.Add(parameterA);
 
                 _context.Database.OpenConnection();
 
