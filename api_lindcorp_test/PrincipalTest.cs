@@ -65,9 +65,9 @@ namespace api_lindcorp_test
 
             var result = _controller.sendData(json);
 
-            var createdResult = Assert.IsType<ActionResult<object>>(result);
+            var response = Assert.IsType<ActionResult<object>>(result);
 
-            var jsonResult = createdResult.Value.ToString();
+            var jsonResult = response.Value.ToString();
             var message = JObject.Parse(jsonResult)["message"].ToString();
 
             Assert.Equal(expectedMessage, message);
@@ -88,9 +88,9 @@ namespace api_lindcorp_test
 
             var result = _controller.sendData(json);
 
-            var createdResult = Assert.IsType<ActionResult<object>>(result);
+            var response = Assert.IsType<ActionResult<object>>(result);
 
-            var jsonResult = createdResult.Value.ToString();
+            var jsonResult = response.Value.ToString();
             var message = JObject.Parse(jsonResult)["message"].ToString();
 
             Assert.Equal(expectedMessage, message);
