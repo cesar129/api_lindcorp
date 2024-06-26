@@ -20,7 +20,7 @@ namespace api_lindcorp.Exceptions
 
             if (exception is BadRequestCustomerException badRequestException)
             {
-                _logger.LogError(badRequestException,"Exception occurred: {Message}",badRequestException.Message);
+                _logger.LogError(badRequestException, "BadRequestCustomerException occurred: {Message}", badRequestException.Message);
                 response.statusCode = System.Net.HttpStatusCode.BadRequest;
                 response.message = badRequestException.Message;
 
@@ -30,7 +30,7 @@ namespace api_lindcorp.Exceptions
 
             if (exception is NotFoundCustomerException notFoundException)
             {
-                _logger.LogError(notFoundException, "Exception occurred: {Message}", notFoundException.Message);
+                _logger.LogError(notFoundException, "NotFoundCustomerException occurred: {Message}", notFoundException.Message);
                 response.statusCode = System.Net.HttpStatusCode.NotFound;
                 response.message = notFoundException.Message;
 
@@ -40,7 +40,7 @@ namespace api_lindcorp.Exceptions
 
             if (exception is UnauthorizedCustomerException unauthorizedException)
             {
-                _logger.LogError(unauthorizedException, "Exception occurred: {Message}", unauthorizedException.Message);
+                _logger.LogError(unauthorizedException, "UnauthorizedCustomerException occurred: {Message}", unauthorizedException.Message);
                 response.statusCode = System.Net.HttpStatusCode.Unauthorized;
                 response.message = unauthorizedException.Message;
 
@@ -50,7 +50,7 @@ namespace api_lindcorp.Exceptions
 
             if (exception is SqlException sqlException)
             {
-                _logger.LogError(sqlException, "Exception occurred: {Message}", sqlException.Message);
+                _logger.LogError(sqlException, "SqlException occurred: {Message}", sqlException.Message);
                 response.statusCode = System.Net.HttpStatusCode.InternalServerError;
                 response.message = sqlException.Message;
 
