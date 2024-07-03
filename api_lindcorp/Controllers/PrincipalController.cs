@@ -5,6 +5,9 @@ using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace api_lindcorp.Controllers
 {
@@ -43,13 +46,22 @@ namespace api_lindcorp.Controllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [HttpPost("/sendData")]
-        public ActionResult<object> sendData([FromBody] object json)
+        public ActionResult sendData([FromBody] object json)
         {
             if (!Request.Headers.TryGetValue("Authorization", out StringValues authorizationHeader)) {
                 throw new UnauthorizedCustomerException("no autorizado");
             }
             string token = Utils.Utils.extractBearerToken(authorizationHeader);
-            return this._dataService.sendData(json.ToString(), token);
+
+            JObject jsonResult = JObject.Parse(this._dataService.sendData(json.ToString(), token));
+            if(jsonResult["totalRecords"]!=null && (int)jsonResult["totalRecords"]>0)
+            {
+                jsonResult["data"] = JArray.Parse((string)jsonResult["data"]);
+            }
+            
+            
+
+            return Content(jsonResult.ToString(), "application/json"); ;
         }
 
     }
