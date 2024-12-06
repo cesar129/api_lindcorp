@@ -54,7 +54,7 @@ namespace api_lindcorp.Controllers
             string token = Utils.Utils.extractBearerToken(authorizationHeader);
 
             JObject jsonResult = JObject.Parse(this._dataService.sendData(json.ToString(), token));
-            if(jsonResult["totalRecords"]!=null && (int)jsonResult["totalRecords"]>0)
+            if(jsonResult["totalRecord"] !=null && (int)jsonResult["totalRecord"] >0)
             {
                 jsonResult["data"] = JArray.Parse((string)jsonResult["data"]);
             }

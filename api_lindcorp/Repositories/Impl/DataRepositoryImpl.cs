@@ -33,6 +33,7 @@ namespace api_lindcorp.Repositories.Impl
             {
                 command.CommandText = "sp_send_data_json";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandTimeout = 0;
 
                 DbParameter parameter = command.CreateParameter();
                 parameter.ParameterName = "@p_vJson";
