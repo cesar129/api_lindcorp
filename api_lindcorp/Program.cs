@@ -89,12 +89,8 @@ var app = builder.Build();
 //Add support to logging request with SERILOG
 app.UseSerilogRequestLogging();
 
-// Configure the HTTP request pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseStatusCodePages();

@@ -1,0 +1,10 @@
+services:
+  api-lindcorp-container:
+    image: mcr.microsoft.com/dotnet/aspnet:8.0
+    container_name: api-lindcorp-container           
+    restart: always
+    ports:
+      - "8040:8080"
+    volumes:
+      - ./publish:/app
+    entrypoint: ["dotnet", "/app/api_lindcorp.dll"]

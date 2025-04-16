@@ -1,0 +1,10 @@
+services:
+      api-lindcorp-container:
+        container_name: api-lindcorp-container
+        image: api-lindcorp-image
+        build: ./        
+        restart: always
+        ports:
+            - "8040:8080"
+        volumes:
+            - ./logs:/app/logs
